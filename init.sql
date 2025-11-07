@@ -1,0 +1,17 @@
+-- users table
+CREATE TABLE IF NOT EXISTS users (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+email TEXT UNIQUE NOT NULL,
+password_hash TEXT NOT NULL,
+created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- refresh tokens table (simple single active token per user example)
+CREATE TABLE IF NOT EXISTS refresh_tokens (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+user_id INTEGER NOT NULL,
+token TEXT NOT NULL,
+issued_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
+);
